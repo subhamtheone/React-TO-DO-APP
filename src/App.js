@@ -21,6 +21,10 @@ class App extends React.Component {
     this.deleteItem = this.deleteItem.bind(this);
     this.setUpdate = this.setUpdate.bind(this);
   }
+  componentDidMount() {
+    const items = JSON.parse(localStorage.getItem('my_to-do-list'));
+    this.setState(items ? {items} : [] );
+  }
   handleInput(e){
     this.setState({
       currentItem:{
@@ -35,6 +39,8 @@ class App extends React.Component {
     console.log(newItem);
     if(newItem.text!==""){
       const items =[...this.state.items, newItem];
+      //localStorage.setItem('rememberMe', rememberMe);
+      localStorage.setItem('my_to-do-list',JSON.stringify(items));
       this.setState({
         items: items,
         currentItem:{
